@@ -14,6 +14,8 @@ export class Row extends Component {
     const { data, style, widthArr, height, flexArr, textStyle, cellTextStyle, ...props } = this.props;
     let width = widthArr ? sum(widthArr) : 0;
 
+    if (!!cellTextStyle) textStyle = {...cellTextStyle(item), ...textStyle}
+
     return data ? (
       <View style={[height && { height }, width && { width }, styles.row, style]}>
         {data.map((item, i) => {
@@ -26,7 +28,7 @@ export class Row extends Component {
               width={wth}
               height={height}
               flex={flex}
-              textStyle={[cellTextStyle && cellTextStyle(item), textStyle]}
+              textStyle={textStyle}
               {...props}
             />
           );
